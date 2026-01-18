@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+        }
+        
+        .birthday-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            color: #d63384;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #6c757d;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-weight: 300;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .photo-section {
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
+        }
+        
+        .photo-frame {
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .photo-container {
+            width: 100%;
+            height: 350px;
+            border-radius: 15px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px dashed #d63384;
+        }
+        
+        #birthday-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .photo-placeholder {
+            text-align: center;
+            color: #6c757d;
+            padding: 20px;
+        }
+        
+        .photo-placeholder i {
+            font-size: 4rem;
+            color: #d63384;
+            margin-bottom: 15px;
+        }
+        
+        .upload-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #d63384;
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .upload-btn:hover {
+            background-color: #c2256e;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(214, 51, 132, 0.3);
+        }
+        
+        #file-input {
+            display: none;
+        }
+        
+        .message-section {
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
+        }
+        
+        .birthday-card {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cake-container {
+            position: relative;
+            height: 150px;
+            margin: 20px 0;
+        }
+        
+        .cake {
+            position: relative;
+            width: 150px;
+            height: 100px;
+            margin: 0 auto;
+        }
+        
+        .cake-layer {
+            position: absolute;
+            border-radius: 10px;
+        }
+        
+        .layer-bottom {
+            width: 150px;
+            height: 50px;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            bottom: 0;
+            z-index: 1;
+        }
+        
+        .layer-middle {
+            width: 125px;
+            height: 45px;
+            background: linear-gradient(to right, #7ef29d, #0f68a9);
+            bottom: 40px;
+            left: 12.5px;
+            z-index: 2;
+        }
+        
+        .layer-top {
+            width: 100px;
+            height: 35px;
+            background: linear-gradient(to right, #f9d423, #ff4e50);
+            bottom: 75px;
+            left: 25px;
+            z-index: 3;
+        }
+        
+        .candle {
+            position: absolute;
+            width: 6px;
+            height: 35px;
+            background-color: #ffd700;
+            border-radius: 3px;
+            bottom: 110px;
+            left: 72px;
+            z-index: 4;
+        }
+        
+        .flame {
+            position: absolute;
+            width: 14px;
+            height: 22px;
+            background-color: #ff9800;
+            border-radius: 50% 50% 20% 20%;
+            bottom: 145px;
+            left: 69px;
+            z-index: 5;
+            animation: flicker 0.5s infinite alternate;
+            box-shadow: 0 0 10px #ff9800;
+        }
+        
+        .message {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            margin: 25px 0;
+            color: #495057;
+            font-weight: 300;
+        }
+        
+        .highlight {
+            color: #d63384;
+            font-weight: 600;
+        }
+        
+        .birthday-person {
+            font-size: 2.5rem;
+            color: #0d6efd;
+            font-weight: 700;
+            margin: 20px 0;
+            text-transform: capitalize;
+        }
+        
+        .balloons-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .balloon {
+            width: 50px;
+            height: 60px;
+            border-radius: 50%;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .balloon:before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.2);
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .balloon:nth-child(1) {
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #c44569);
+            animation-delay: 0s;
+        }
+        
+        .balloon:nth-child(2) {
+            background: radial-gradient(circle at 30% 30%, #4ecdc4, #26a69a);
+            animation-delay: 0.5s;
+        }
+        
+        .balloon:nth-child(3) {
+            background: radial-gradient(circle at 30% 30%, #ffe66d, #ffd166);
+            animation-delay: 1s;
+        }
+        
+        .balloon:nth-child(4) {
+            background: radial-gradient(circle at 30% 30%, #9b5de5, #7b2cbf);
+            animation-delay: 1.5s;
+        }
+        
+        .balloon:nth-child(5) {
+            background: radial-gradient(circle at 30% 30%, #00bbf9, #0081a7);
+            animation-delay: 2s;
+        }
+        
+        .music-control {
+            margin-top: 20px;
+        }
+        
+        .music-btn {
+            padding: 12px 30px;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .music-btn:hover {
+            background-color: #0b5ed7;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            top: -10px;
+            opacity: 0;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #6c757d;
+            font-size: 0.9rem;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 700px;
+        }
+        
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        .confetti-notice {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #6c757d;
+            display: inline-block;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes flicker {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.1); opacity: 0.9; }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.1); }
+            10% { transform: scale(1); }
+            15% { transform: scale(1.2); }
+            20% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        
+        @media (max-width: 768px) {
+            .birthday-title {
+                font-size: 3.5rem;
+            }
+            
+            .birthday-card {
+                padding: 30px;
+            }
+            
+            .message {
+                font-size: 1.3rem;
+            }
+            
+            .birthday-person {
+                font-size: 2rem;
+            }
+            
+            .photo-container {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .birthday-title {
+                font-size: 2.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .main-content {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="birthday-title">¡Feliz Cumpleaños!</h1>
+            <p class="subtitle">Que este día especial esté lleno de alegría, risas y momentos inolvidables</p>
+        </header>
+        
+        <div class="main-content">
+            <section class="photo-section">
+                <div class="photo-frame">
+                    <div class="photo-container">
+                        <img id="birthday-photo" alt="Foto del cumpleañero">
+                        <div class="photo-placeholder" id="photo-placeholder">
+                            <i class="fas fa-birthday-cake"></i>
+                            <p>Sube una foto del cumpleañero/a</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <input type="file" id="file-input" accept="image/*">
+                <label for="file-input" class="upload-btn">
+                    <i class="fas fa-cloud-upload-alt"></i> Subir Foto
+                </label>
+            </section>
+            
+            <section class="message-section">
+                <div class="birthday-card">
+                    <div class="cake-container">
+                        <div class="cake">
+                            <div class="cake-layer layer-bottom"></div>
+                            <div class="cake-layer layer-middle"></div>
+                            <div class="cake-layer layer-top"></div>
+                            <div class="candle"></div>
+                            <div class="flame"></div>
+                        </div>
+                    </div>
+                    
+                    <h2 class="birthday-person">¡MI TOCHIRORI!</h2>
+                    
+                    <p class="message">
+                        Una pequeña poesía para mí princesa hermosa:
+                      <br><br>
+En un día de este mes, el amor floreció,
+un girasol de enero que el frío desafió.
+Hoy cumples veintitrés, una nueva raíz,
+y mi pecho es la tierra que a tu tallo hace feliz.
+<br><br>
+Cada año contigo es una versión de nuestro cuento,
+Las mejores ocasiones demostradas con hechos,en un eterno momento.
+El infinito es: el estar contigo a tu lado,
+en estos 23 que jamás será olvidado.
+<br><br>
+Que este día, tu día, esté lleno de sol,
+que la vida te brinde su mejor girasol.<span class="highlight">
+Feliz cumpleaños</span>, mi eterno amor!
+<br><br>
+#elmonjelaversion #pazyamor #shrekyfiona #amor #tuyyo #yoytu
+                    </p>
+                    
+                    <div class="balloons-container">
+                        <div class="balloon"></div>
+                        <div class="balloon"></div>
+                        <div class="balloon"></div>
+                        <div class="balloon"></div>
+                        <div class="balloon"></div>
+                    </div>
+                    
+                    <div class="music-control">
+                        <button class="music-btn" id="music-btn">
+                            <i class=""></i> 
+                        </button>
+                    </div>
+                
+            
+        
+        
+        <footer class="footer">
+            <p>Hecho con <span class="heart">❤</span> para celebrar tu día especial</p>
+            
+            <p class="confetti-notice"></p>
+        </footer>
+    </div>
+
+    <audio id="birthday-song" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Elementos DOM
+        const fileInput = document.getElementById('file-input');
+        const birthdayPhoto = document.getElementById('birthday-photo');
+        const photoPlaceholder = document.getElementById('photo-placeholder');
+        const musicBtn = document.getElementById('music-btn');
+        const birthdaySong = document.getElementById('birthday-song');
+        
+        // Variables de control
+        let isPlaying = false;
+        let confettiInterval;
+        
+        // Cargar foto
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    birthdayPhoto.src = e.target.result;
+                    birthdayPhoto.style.display = 'block';
+                    photoPlaceholder.style.display = 'none';
+                    
+                    // Efecto visual al cargar la foto
+                    const photoContainer = document.querySelector('.photo-container');
+                    photoContainer.style.border = '3px solid #d63384';
+                    photoContainer.style.transition = 'border 0.5s ease';
+                }
+                
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Control de música
+        musicBtn.addEventListener('click', function() {
+            if (isPlaying) {
+                birthdaySong.pause();
+                musicBtn.innerHTML = '<i class="fas fa-music"></i> Reproducir Música';
+                isPlaying = false;
+            } else {
+                birthdaySong.play().then(() => {
+                    musicBtn.innerHTML = '<i class="fas fa-pause"></i> Pausar Música';
+                    isPlaying = true;
+                }).catch(error => {
+                    console.log("Error al reproducir música:", error);
+                    alert("Para reproducir la música, haz clic en cualquier parte de la página primero y luego en el botón de música.");
+                });
+            }
+        });
+        
+        // Iniciar confeti automático cada 20 segundos
+        function startAutoConfetti() {
+            // Lanzar confeti inmediatamente al cargar
+            createConfetti();
+            
+            // Configurar intervalo cada 20 segundos
+            confettiInterval = setInterval(createConfetti, 20000);
+        }
+        
+        // Función para crear confeti
+        function createConfetti() {
+            const confettiCount = 120;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // Colores aleatorios
+                const colors = ['#ff6b6b', '#4ecdc4', '#ffe66d', '#9b5de5', '#00bbf9', '#d63384'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.backgroundColor = color;
+                
+                // Posición aleatoria
+                const posX = Math.random() * 100;
+                confetti.style.left = `${posX}vw`;
+                
+                // Tamaño aleatorio
+                const size = Math.random() * 10 + 5;
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                
+                // Forma aleatoria (círculo, cuadrado o triángulo)
+                const shape = Math.random();
+                if (shape > 0.7) {
+                    confetti.style.borderRadius = '50%';
+                } else if (shape > 0.4) {
+                    confetti.style.borderRadius = '0';
+                } else {
+                    confetti.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)';
+                }
+                
+                document.body.appendChild(confetti);
+                
+                // Animación
+                const animationDuration = Math.random() * 3 + 2;
+                const animationDelay = Math.random() * 1;
+                
+                // Definir las animaciones
+                const styleSheet = document.styleSheets[0];
+                const ruleIndex1 = styleSheet.cssRules.length;
+                const ruleIndex2 = styleSheet.cssRules.length + 1;
+                
+                styleSheet.insertRule(`
+                    @keyframes fall-${i} {
+                        0% { top: -20px; opacity: 1; transform: translateX(0) rotate(0deg); }
+                        100% { top: 100vh; opacity: 0; transform: translateX(${Math.random() * 100 - 50}px) rotate(${Math.random() * 360}deg); }
+                    }
+                `, ruleIndex1);
+                
+                styleSheet.insertRule(`
+                    @keyframes sway-${i} {
+                        0%, 100% { transform: translateX(0); }
+                        50% { transform: translateX(${Math.random() * 20 - 10}px); }
+                    }
+                `, ruleIndex2);
+                
+                confetti.style.animation = `
+                    fall-${i} ${animationDuration}s ease-in ${animationDelay}s forwards,
+                    sway-${i} ${animationDuration/2}s ease-in-out ${animationDelay}s infinite
+                `;
+                
+                // Eliminar confeti después de la animación
+                setTimeout(() => {
+                    if (confetti.parentNode) {
+                        confetti.remove();
+                    }
+                }, (animationDuration + animationDelay) * 1000);
+            }
+            
+            // Efecto en la llama de la vela
+            const flame = document.querySelector('.flame');
+            flame.style.animation = 'none';
+            flame.style.boxShadow = '0 0 20px #ff9800, 0 0 40px #ff9800';
+            setTimeout(() => {
+                flame.style.animation = 'flicker 0.5s infinite alternate';
+                flame.style.boxShadow = '0 0 10px #ff9800';
+            }, 1000);
+        }
+        
+        // Efecto inicial al cargar la página
+        window.addEventListener('load', function() {
+            // Iniciar confeti automático
+            startAutoConfetti();
+            
+            // Permitir la reproducción de audio con un primer clic
+            document.body.addEventListener('click', function initAudio() {
+                // Solo necesitamos este evento una vez
+                document.body.removeEventListener('click', initAudio);
+                
+                // Reproducir música automáticamente (opcional)
+                // birthdaySong.play().then(() => {
+                //     musicBtn.innerHTML = '<i class="fas fa-pause"></i> Pausar Música';
+                //     isPlaying = true;
+                // });
+            });
+        });
+        
+        // Efecto al pasar el cursor sobre los globos
+        document.querySelectorAll('.balloon').forEach(balloon => {
+            balloon.addEventListener('mouseover', function() {
+                this.style.transform = 'scale(1.2)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            balloon.addEventListener('mouseout', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
