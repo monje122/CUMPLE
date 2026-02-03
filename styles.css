@@ -243,7 +243,8 @@ body {
 
 .lock-romantic {
   text-align: center;
-  
+  transform: scale(0.9);
+  animation: lockShake 10s infinite ease-in-out;
 }
 
 .lock-shackle {
@@ -305,4 +306,12 @@ body {
   margin-top: 10px;
   font-size: 0.85rem;
   color: #555;
+}
+@keyframes lockShake {
+    0%   { transform: rotate(0deg); }
+    20%  { transform: rotate(0.8deg); }
+    40%  { transform: rotate(-0.8deg); }
+    60%  { transform: rotate(0.6deg); }
+    80%  { transform: rotate(-0.6deg); }
+    100% { transform: rotate(0deg); }
 }
