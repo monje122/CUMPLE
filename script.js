@@ -30,18 +30,21 @@ createHearts();
 const envelope = document.getElementById('envelope');
 const letterText = document.getElementById('letter-text');
 
-const message = `Mi amor ❤️
+const message = `Feliz San Valentín, mi amor 🤍
 
-No hay palabras suficientes
-para decirte lo importante que eres para mí.
+Desde que llegaste a mi vida, todo cambió de la forma más bonita.
+Aprendí que el amor no solo se dice, se siente…
+en cada mirada, en cada risa compartida, en cada momento a tu lado.
 
-Cada día contigo es un regalo,
-cada sonrisa tuya, mi lugar seguro.
+Gracias por ser mi lugar seguro,
+mi calma en los días difíciles
+y mi sonrisa en los días felices.
 
-Gracias por existir,
-gracias por quedarte.
+Hoy y siempre, te elijo a ti.
+Porque contigo, el amor no es una promesa:
+es una realidad que vivo cada día.
 
-Feliz cumpleaños 🤍`;
+Te amo más de lo que las palabras pueden explicar. ❤️`;
 
 let index = 0;
 let opened = false;
@@ -116,7 +119,9 @@ function heartExplosion() {
 
 unlockBtn.addEventListener('click', () => {
   if (getCurrentCode() === correctCode) {
-    heartExplosion();
+     heartExplosion();
+      // 🎶 INICIAR MÚSICA
+    bgMusic.play().catch(() => {});
     setTimeout(() => {
       lockScreen.style.display = 'none';
       mainContent.classList.remove('hidden');
