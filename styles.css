@@ -1,0 +1,229 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    max-width: 500px;
+}
+
+.title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.5rem;
+    color: #d63384;
+}
+
+.subtitle {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.photo-container {
+    margin: 20px auto;
+    width: 100%;
+    max-width: 350px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 4px solid #d63384;
+}
+
+.photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* CARTA */
+.letter {
+    margin-top: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: shake 2s infinite;
+}
+
+@keyframes shake {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(1deg); }
+    75% { transform: rotate(-1deg); }
+}
+
+.letter.open {
+    animation: none;
+}
+
+.letter-text {
+    display: none;
+    margin-top: 15px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* CORAZONES */
+.heart-fall {
+    position: fixed;
+    top: -20px;
+    font-size: 16px;
+    color: #ff6b81;
+    animation: fall-heart linear forwards;
+    pointer-events: none;
+    z-index: 999;
+}
+
+@keyframes fall-heart {
+    to {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+/* SOBRE */
+.envelope-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 120px;
+}
+
+/* SOBRE */
+.envelope-real {
+    width: 360px;
+    height: 230px;
+    background: #f4f1ee;
+    position: relative;
+    border-radius: 3px;
+    box-shadow: 
+        0 10px 25px rgba(0,0,0,0.25),
+        inset 0 0 0 1px rgba(0,0,0,0.08);
+    cursor: pointer;
+    animation: envelopeShake 3s infinite ease-in-out;
+
+}
+
+.envelope-real.open {
+    animation: none;
+}
+
+/* SOLAPA */
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #e9e4df;
+    clip-path: polygon(0 0, 100% 0, 50% 55%);
+    transform-origin: top;
+    transition: transform 1s ease;
+    z-index: 5;
+}
+
+.envelope-real.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+/* CUERPO */
+.envelope-body {
+    width: 100%;
+    height:100%;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+/* PAPEL */
+.letter-paper {
+    position: absolute;
+    bottom: -100%;
+    left: 10px;
+    width: calc(100% - 20px);
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    border-radius: 2px;
+    transition: bottom 1.2s ease;
+}
+
+.envelope-real.open .letter-paper {
+    bottom: 20px;
+}
+
+/* TEXTO */
+#letter-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+    white-space: pre-line;
+}
+
+@keyframes envelopeShake {
+    0%   { transform: rotate(5deg); }
+    25%  { transform: rotate(0.10deg); }
+    50%  { transform: rotate(-0.10deg); }
+    75%  { transform: rotate(0.10eg); }
+    100% { transform: rotate(5deg); }
+}
+
+.envelope-heart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 70px;
+    color: #d62828;
+    z-index: 6;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+/* 🔥 SOLO cuando se abre desaparece */
+.envelope-real.open .envelope-heart {
+    opacity: 0;
+}
+
+.photo-container {
+    margin: 20px auto;
+    width: 100%;
+    max-width: 350px;
+    height: 350px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 4px solid #d63384;
+    position: relative;
+    background: #fff;
+}
+
+.photo-slider {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.photo-slider img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
+
+.photo-slider img.active {
+    opacity: 1;
+}
