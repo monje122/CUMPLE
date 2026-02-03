@@ -66,3 +66,63 @@ setInterval(() => {
     currentPhoto = (currentPhoto + 1) % photos.length;
     photos[currentPhoto].classList.add('active');
 }, 3000); // cambia cada 4 segundos
+
+const correctCode = "230124"; // ❤️ TU CÓDIGO SECRETO
+const digits = document.querySelectorAll('.digit');
+const unlockBtn = document.getElementById('unlockBtn');
+const lockScreen = document.getElementById('lockScreen');
+const mainContent = document.getElementById('mainContent');
+
+// girar números
+digits.forEach(digit => {
+  digit.addEventListener('click', () => {
+    let num = parseInt(digit.textContent);
+    num = (num + 1) % 10;
+    digit.textContent = num;
+  });
+});
+
+function getCurrentCode() {
+  return Array.from(digits).map(d => d.textContent).join('');
+}
+
+// explosión de corazones
+function heartExplosion() {
+  for (let i = 0; i < 120; i++) {
+    const heart = document.createElement('div');
+    heart.innerHTML = '❤';
+    heart.style.position = 'fixed';
+    heart.style.left = '50%';
+    heart.style.top = '50%';
+    heart.style.fontSize = Math.random() * 20 + 14 + 'px';
+    heart.style.color = '#d62828';
+    heart.style.pointerEvents = 'none';
+    heart.style.zIndex = '10000';
+
+    const x = (Math.random() - 0.5) * 400;
+    const y = (Math.random() - 0.5) * 400;
+
+    heart.style.transition = 'transform 1.5s ease, opacity 1.5s ease';
+    document.body.appendChild(heart);
+
+    requestAnimationFrame(() => {
+      heart.style.transform = `translate(${x}px, ${y}px)`;
+      heart.style.opacity = '0';
+    });
+
+    setTimeout(() => heart.remove(), 1500);
+  }
+}
+
+unlockBtn.addEventListener('click', () => {
+  if (getCurrentCode() === correctCode) {
+    heartExplosion();
+    setTimeout(() => {
+      lockScreen.style.display = 'none';
+      mainContent.classList.remove('hidden');
+    }, 1200);
+  } else {
+    digits.forEach(d => d.style.color = '#ff0000');
+    setTimeout(() => digits.forEach(d => d.style.color = '#ff6b81'), 600);
+  }
+});
