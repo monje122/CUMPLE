@@ -65,7 +65,7 @@ setInterval(() => {
     photos[currentPhoto].classList.add('active');
 }, 3000); // cambia cada 4 segundos
 
-const correctCode = "230124"; // ❤️ TU CÓDIGO SECRETO
+const correctCode = "180126"; // ❤️ TU CÓDIGO SECRETO
 const digits = document.querySelectorAll('.digit');
 const unlockBtn = document.getElementById('unlockBtn');
 const lockScreen = document.getElementById('lockScreen');
