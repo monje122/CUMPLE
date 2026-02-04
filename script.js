@@ -1,8 +1,3 @@
-// 🎶 Música
-const song = document.getElementById('birthday-song');
-document.body.addEventListener('click', () => {
-    song.play().catch(() => {});
-}, { once: true });
 
 // 💕 Corazones cayendo
 function createHearts() {
@@ -130,4 +125,29 @@ unlockBtn.addEventListener('click', () => {
     digits.forEach(d => d.style.color = '#ff0000');
     setTimeout(() => digits.forEach(d => d.style.color = '#ff6b81'), 600);
   }
+});
+let currentQuestion = 0;
+const questions = document.querySelectorAll('.question');
+const videoBox = document.getElementById('videoBox');
+const questionsBox = document.getElementById('questionsBox');
+
+function answerQuestion() {
+    questions[currentQuestion].classList.remove('active');
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        questions[currentQuestion].classList.add('active');
+    } else {
+        questionsBox.style.display = 'none';
+        videoBox.classList.remove('hidden');
+    }
+}
+const bgMusic = document.getElementById('bgMusic');
+const loveVideo = document.getElementById('loveVideo');
+
+// Cuando el video empieza → apagar música
+loveVideo.addEventListener('play', () => {
+    if (bgMusic && !bgMusic.paused) {
+        bgMusic.pause();
+    }
 });
